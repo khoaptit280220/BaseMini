@@ -1,2 +1,2 @@
-- BaseMini use Observer Pattern builded scriptstableObject Architecture
-- Don't use singleton
+- BaseMini use Observer Pattern builded with ScriptableObject Architecture
+- Don't use Singleton
