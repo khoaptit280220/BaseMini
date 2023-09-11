@@ -21,7 +21,7 @@ public class Popup : MonoBehaviour
     {
         BeforeShow();
         gameObject.SetActive(true);
-        CanvasGroup.DOFade(1, PopupController.Instance.DurationPopup).OnComplete(() =>
+        CanvasGroup.DOFade(1,0.2f).OnComplete(() =>
         {
             CanvasGroup.interactable = true;
             AfterShown();

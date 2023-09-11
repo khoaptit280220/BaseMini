@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VirtueSky.Events;
 
 public class PopupWin : Popup
 {
+    public EventNoParam eventPrepareLevel;
+    public EventNoParam eventStartGame;
+    
     public void OnClicKContinue()
     {
-        GameManager.Instance.PrepareLevel();
-        GameManager.Instance.StartGame();
+       eventPrepareLevel.Raise();
+       eventStartGame.Raise();
     }
 }

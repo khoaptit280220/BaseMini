@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using VirtueSky.Events;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     public LevelController LevelController;
     public GameState GameState;
     [HideInInspector] public int Point = 0;
+
+    public EventShowPopup eventShowPopup;
+    public EventHidePopup eventHidePopup;
+    public EventNoParam eventHideAll;
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -21,14 +26,19 @@ public class GameManager : Singleton<GameManager>
         GameState = GameState.PrepareGame;
         Point = 0;
         LevelController.PrepareLevel();
-        PopupController.Instance.Show<PopupHome>();
+        //PopupController.Instance.Show<PopupHome>();
+        
+        eventShowPopup.Raise(typeof(PopupHome));
     }
     public void ReturnHome()
     {
         PrepareLevel();
 
-        PopupController.Instance.HideAll();
-        PopupController.Instance.Show<PopupHome>();
+       // PopupController.Instance.HideAll();
+       // PopupController.Instance.Show<PopupHome>();
+       
+       eventHideAll.Raise();
+       eventShowPopup.Raise(typeof(PopupHome));
     }
 
     public void ReplayGame()
@@ -41,9 +51,15 @@ public class GameManager : Singleton<GameManager>
     {
         GameState = GameState.PlayingGame;
         LevelController.CurrentLevel.gameObject.SetActive(true);
-        PopupController.Instance.HideAll();
-        PopupController.Instance.Hide<PopupHome>();
-        PopupController.Instance.Show<PopupInGame>();
+        // PopupController.Instance.HideAll();
+        // PopupController.Instance.Hide<PopupHome>();
+        // PopupController.Instance.Show<PopupInGame>();
+        
+        eventHideAll.Raise();
+        
+        eventShowPopup.Raise(typeof(PopupInGame));
+        
+        
     }
 
     public void OnWinGame(float delayPopupShowTime = 1f)
@@ -54,8 +70,12 @@ public class GameManager : Singleton<GameManager>
 
         DOTween.Sequence().AppendInterval(delayPopupShowTime).AppendCallback(() =>
         {
-            PopupController.Instance.HideAll();
-            PopupController.Instance.Show<PopupWin>();
+            // PopupController.Instance.HideAll();
+            // PopupController.Instance.Show<PopupWin>();
+            
+            eventHideAll.Raise();
+        
+            eventShowPopup.Raise(typeof(PopupWin));
         });
     }
 
@@ -66,8 +86,12 @@ public class GameManager : Singleton<GameManager>
 
         DOTween.Sequence().AppendInterval(delayPopupShowTime).AppendCallback(() =>
         {
-            PopupController.Instance.HideAll();
-            PopupController.Instance.Show<PopupLose>();
+            // PopupController.Instance.HideAll();
+            // PopupController.Instance.Show<PopupLose>();
+            
+            eventHideAll.Raise();
+        
+            eventShowPopup.Raise(typeof(PopupLose));
         });
     }
 
