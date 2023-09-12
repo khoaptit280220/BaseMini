@@ -9,6 +9,7 @@ public class PopupController : MonoBehaviour
     public Transform CanvasTransform;
     public CanvasScaler CanvasScaler;
     public float DurationPopup = 0.2f;
+    public Camera cameraUI;
     public List<Popup> Popups;
 
     private Dictionary<Type, Popup> dictionary = new Dictionary<Type, Popup>();
@@ -17,7 +18,7 @@ public class PopupController : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         Initialize();
-        // CanvasScaler.matchWidthOrHeight = Camera.main.aspect > .7f ? 1 : 0;
+        CanvasScaler.matchWidthOrHeight = cameraUI.aspect > .7f ? 1 : 0;
     }
 
     public void Initialize()
@@ -31,7 +32,6 @@ public class PopupController : MonoBehaviour
             popupInstance.CanvasGroup.alpha = 0;
             popupInstance.CanvasGroup.interactable = false;
             dictionary.Add(popupInstance.GetType(), popupInstance);
-            
         });
     }
 
@@ -95,6 +95,7 @@ public class PopupController : MonoBehaviour
         {
             return popup;
         }
+
         return null;
     }
 }
