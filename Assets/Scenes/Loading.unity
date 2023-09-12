@@ -175,6 +175,7 @@ MonoBehaviour:
   CanvasTransform: {fileID: 1496112100}
   CanvasScaler: {fileID: 1496112101}
   DurationPopup: 0.2
+  cameraUI: {fileID: 1294075276}
   Popups:
   - {fileID: 7163974522313086166, guid: 0f32b77de709d4939b83ba46276b0d00, type: 3}
   - {fileID: 7252245487566859768, guid: f6fed9b90cae14be8a46ede220b67f4b, type: 3}
