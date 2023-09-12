@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public EventShowPopup eventShowPopup;
     public EventHidePopup eventHidePopup;
     public EventNoParam eventHideAll;
+
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -26,19 +27,14 @@ public class GameManager : MonoBehaviour
         GameState = GameState.PrepareGame;
         Point = 0;
         LevelController.PrepareLevel();
-        //PopupController.Instance.Show<PopupHome>();
-        
         eventShowPopup.Raise(typeof(PopupHome));
     }
+
     public void ReturnHome()
     {
         PrepareLevel();
-
-       // PopupController.Instance.HideAll();
-       // PopupController.Instance.Show<PopupHome>();
-       
-       eventHideAll.Raise();
-       eventShowPopup.Raise(typeof(PopupHome));
+        eventHideAll.Raise();
+        eventShowPopup.Raise(typeof(PopupHome));
     }
 
     public void ReplayGame()
@@ -51,15 +47,10 @@ public class GameManager : MonoBehaviour
     {
         GameState = GameState.PlayingGame;
         LevelController.CurrentLevel.gameObject.SetActive(true);
-        // PopupController.Instance.HideAll();
-        // PopupController.Instance.Hide<PopupHome>();
-        // PopupController.Instance.Show<PopupInGame>();
-        
+
         eventHideAll.Raise();
-        
+
         eventShowPopup.Raise(typeof(PopupInGame));
-        
-        
     }
 
     public void OnWinGame(float delayPopupShowTime = 1f)
@@ -70,11 +61,8 @@ public class GameManager : MonoBehaviour
 
         DOTween.Sequence().AppendInterval(delayPopupShowTime).AppendCallback(() =>
         {
-            // PopupController.Instance.HideAll();
-            // PopupController.Instance.Show<PopupWin>();
-            
             eventHideAll.Raise();
-        
+
             eventShowPopup.Raise(typeof(PopupWin));
         });
     }
@@ -86,16 +74,13 @@ public class GameManager : MonoBehaviour
 
         DOTween.Sequence().AppendInterval(delayPopupShowTime).AppendCallback(() =>
         {
-            // PopupController.Instance.HideAll();
-            // PopupController.Instance.Show<PopupLose>();
-            
             eventHideAll.Raise();
-        
+
             eventShowPopup.Raise(typeof(PopupLose));
         });
     }
-
 }
+
 public enum GameState
 {
     PrepareGame,
